@@ -8,7 +8,7 @@ Public Class _Default
         Dim resized As String = String.Empty
         
         Dim resizer As New ImageResizer.ImageResizer
-        resized = resizer.ResizeFromLocalServer(MapPath(original), New ImageResizer.ImageSize With {.Height = 80, .Width = 80})
+        resized = resizer.ResizeFromFilePath(MapPath(original), New ImageResizer.ImageSize With {.Height = 120, .Width = 120})
 
         imgOriginal.ImageUrl = original
         imgResized.ImageUrl = MapURL(resized)

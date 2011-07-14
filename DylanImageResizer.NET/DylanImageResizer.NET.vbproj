@@ -69,6 +69,7 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FileHelper.vb" />
     <Compile Include="IImageSize.vb" />
     <Compile Include="ImageResizer.vb" />
     <Compile Include="ImageSize.vb" />

@@ -15,7 +15,7 @@ It should be like this...
         Width = 30
     });
 
-### c#
+### c\#
     Dim resizer As New ImageResizer.ImageResizer()
     resizer.ResizeFromLocalServer(MapPath("/example.jpg"), New ImageResizer.ImageSize() With { _
         .Height = 30, _
