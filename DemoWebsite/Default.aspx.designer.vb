@@ -30,4 +30,40 @@ Partial Public Class _Default
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents imgResized As Global.System.Web.UI.WebControls.Image
+
+    '''<summary>
+    '''imgOriginalFile control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents imgOriginalFile As Global.System.Web.UI.WebControls.Image
+
+    '''<summary>
+    '''imgResizedFile control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents imgResizedFile As Global.System.Web.UI.WebControls.Image
+
+    '''<summary>
+    '''imgOriginalWeb control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents imgOriginalWeb As Global.System.Web.UI.WebControls.Image
+
+    '''<summary>
+    '''imgResizedWeb control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents imgResizedWeb As Global.System.Web.UI.WebControls.Image
 End Class

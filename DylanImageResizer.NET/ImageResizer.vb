@@ -1,18 +1,56 @@
 ﻿Imports System.Drawing
 Imports System.IO
+Imports System.Net
 
 Public Class ImageResizer
 
-    Public Function ResizeFromFilePath(ByVal imageOnDisk As String, ByVal maximumImageSize As IImageSize) As String
-        Dim newPath As String = FileHelper.GetNewImagePath(imageOnDisk, maximumImageSize)
-        If File.Exists(imageOnDisk) Then
-            If Not File.Exists(newPath) Then
-                Using imageObj As System.Drawing.Image = System.Drawing.Image.FromFile(imageOnDisk)
-                    CalaculateSizeAndResizeImage(imageObj, newPath, Imaging.ImageFormat.Jpeg, maximumImageSize)
-                End Using
-                'Do we want to do anything with the new image? Perhas upload it to a CDN?
+    Public Function ResizeImage(ByVal imageURL As String, ByVal maximumImageSize As IImageSize) As String
+        Dim newPath As String = FileHelper.GetNewImagePath(imageURL, maximumImageSize)
+        If Not File.Exists(newPath) Then
+            If FileHelper.IsWebServer(imageURL) Then
+                Return ResizeFromInternet(imageURL, newPath, maximumImageSize)
+            ElseIf FileHelper.IsFromLocalPath(imageURL) Then
+                Return ResizeFromFilePath(imageURL, newPath, maximumImageSize)
+            Else
+                Return ResizeFromLocalServer(imageURL, newPath, maximumImageSize)
             End If
         End If
+        Return newPath
+    End Function
+
+    Private Function ResizeFromLocalServer(ByVal imageURL As String, _
+                                           ByVal newPath As String, _
+                                           ByVal maximumImageSize As IImageSize) As String
+        Dim originalPath As String = String.Empty
+        originalPath = FileHelper.MapPath(imageURL)
+        Return ResizeFromFilePath(originalPath, newPath, maximumImageSize)
+    End Function
+
+    Private Function ResizeFromFilePath(ByVal imageOnDisk As String, _
+                                       ByVal newPath As String, _
+                                       ByVal maximumImageSize As IImageSize) As String
+        If File.Exists(imageOnDisk) Then
+            Using imageObj As System.Drawing.Image = System.Drawing.Image.FromFile(imageOnDisk)
+                CalaculateSizeAndResizeImage(imageObj, newPath, Imaging.ImageFormat.Jpeg, maximumImageSize)
+            End Using
+            'Do we want to do anything with the new image? Perhas upload it to a CDN?
+        End If
+        Return newPath
+    End Function
+    Private Function ResizeFromInternet(ByVal imageURL As String, _
+                                        ByVal newPath As String, _
+                                        ByVal maximumImageSize As IImageSize) As String
+        Dim objRequest As WebRequest
+        objRequest = WebRequest.Create(New Uri(imageURL))
+        objRequest.Timeout = 10000
+        CType(objRequest, HttpWebRequest).UserAgent = "(compatible; http://digiguru.net)"
+        Using objResponse As WebResponse = objRequest.GetResponse()
+            Using objStreamReceive As Stream = objResponse.GetResponseStream()
+                Using imageObj As System.Drawing.Image = System.Drawing.Image.FromStream(objStreamReceive)
+                    CalaculateSizeAndResizeImage(imageObj, newPath, Imaging.ImageFormat.Jpeg, maximumImageSize)
+                End Using
+            End Using
+        End Using
         Return newPath
     End Function
     Private Sub CalaculateSizeAndResizeImage(ByRef imageObj As System.Drawing.Image, _
@@ -29,6 +67,7 @@ Public Class ImageResizer
         End If
 
     End Sub
+
     Private Function CalculateImageSize(ByVal originalSize As IImageSize, _
                                      ByVal targetSize As IImageSize) As IImageSize
         Dim newSize As IImageSize = targetSize
@@ -41,6 +80,7 @@ Public Class ImageResizer
         End If
         Return newSize
     End Function
+
     Private Sub ResizeImage(ByRef imageObj As Image, _
                            ByVal savePath As String, _
                            ByVal format As Imaging.ImageFormat, _

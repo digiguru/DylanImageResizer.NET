@@ -47,7 +47,7 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ImageResizer, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ImageResizer, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\DylanImageResizer.NET\bin\Release\ImageResizer.dll</HintPath>
     </Reference>
@@ -91,6 +91,7 @@
     <Import Include="System.Web.UI.HtmlControls" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="chrome.jpg" />
     <Content Include="Example.jpg" />
     <Content Include="Styles\Site.css" />
     <Content Include="Default.aspx" />

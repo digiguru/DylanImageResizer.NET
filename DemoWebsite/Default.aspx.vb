@@ -4,21 +4,38 @@ Public Class _Default
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
-        Dim original As String = "/example.jpg"
-        Dim resized As String = String.Empty
-        
         Dim resizer As New ImageResizer.ImageResizer
-        resized = resizer.ResizeFromFilePath(MapPath(original), New ImageResizer.ImageSize With {.Height = 120, .Width = 120})
 
-        imgOriginal.ImageUrl = original
-        imgResized.ImageUrl = MapURL(resized)
+        With resizer
+            Dim original As String = "/example.jpg"
+            Dim resized As String = String.Empty
 
+            resized = .ResizeImage(original, New ImageResizer.ImageSize With {.Height = 105, .Width = 105})
+
+            imgOriginal.ImageUrl = original
+            imgResized.ImageUrl = ImageResizer.FileHelper.MapURL(resized)
+        End With
+
+        With resizer
+            Dim originalFile As String = "/chrome.jpg"
+            Dim resizedFile As String = String.Empty
+
+            resizedFile = .ResizeImage(MapPath(originalFile), New ImageResizer.ImageSize With {.Height = 105, .Width = 105})
+
+            imgOriginalFile.ImageUrl = originalFile
+            imgResizedFile.ImageUrl = ImageResizer.FileHelper.MapURL(resizedFile)
+        End With
+
+        With resizer
+            Dim originalWeb As String = "https://gs1.wac.edgecastcdn.net/80460E/assets/images/modules/dashboard/bootcamp/octocat_create.png"
+            Dim resizedWeb As String = String.Empty
+
+            resizedWeb = .ResizeImage(originalWeb, New ImageResizer.ImageSize With {.Height = 105, .Width = 105})
+
+            imgOriginalWeb.ImageUrl = originalWeb
+            imgResizedWeb.ImageUrl = ImageResizer.FileHelper.MapURL(resizedWeb)
+        End With
 
     End Sub
-    Public Function MapURL(ByVal Path As String) As String
-        Dim AppPath As String = Server.MapPath("~")
-        Dim replacePath As String = Path.Replace(AppPath, "")
-        Dim url As String = String.Format("~/{0}", replacePath.Replace("\", "/"))
-        Return url
-    End Function
+    
 End Class

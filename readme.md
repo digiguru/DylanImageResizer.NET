@@ -15,7 +15,7 @@ It should be like this...
         Width = 30
     });
 
-### c\#
+### c/#
     Dim resizer As New ImageResizer.ImageResizer()
     resizer.ResizeFromLocalServer(MapPath("/example.jpg"), New ImageResizer.ImageSize() With { _
         .Height = 30, _
@@ -30,13 +30,21 @@ The goal of this project is to make it really easy for users to resize images in
 Future Plans
 ------------
 
-+ Don't distort the image when resizing, keep the original proportions.
++ Give options on weather the image should be cropped or resized smaller than the box
 + Allow multiple images to be resized at once.
 
 Release History
 ---------------
 
-### Version 1.0
+### Version 1.0.0.2
+
+Allows resizeing from a local computer, an image on the local server or a remote image from the web
+
+### Version 1.0.0.1
+
+Constrain the proportions of the image that is being resized
+
+### Version 1.0.0.0
 
 Allow users to resize the images just by selecting a URL on the server, and selecting the height and width.
 
