@@ -35,6 +35,10 @@ Future Plans
 
 Release History
 ---------------
+### Version 2.0.0.0
+
+
+*Breaking change* - No Image Resize with just path, now we output extra information
 
 ### Version 1.0.0.2
 

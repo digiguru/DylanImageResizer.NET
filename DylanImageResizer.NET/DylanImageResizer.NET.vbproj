@@ -63,7 +63,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FileHelper.vb" />
+    <Compile Include="IImageResizeable.vb" />
     <Compile Include="IImageSize.vb" />
+    <Compile Include="ImageResizable.vb" />
     <Compile Include="ImageResizer.vb" />
     <Compile Include="ImageSize.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
