@@ -11,6 +11,9 @@ Public Class FileHelper
     Public Shared Function IsFromLocalPath(path As String) As Boolean
         Return path.Contains(":") And Not IsWebServer(path)
     End Function
+    Public Shared Function GetNewImagePath(ByVal image As IResizableImageOptions) As String
+        Return GetNewImagePath(image.InputPath, image.MaximumImageSize)
+    End Function
     Public Shared Function GetNewImagePath(ByVal imagePath As String, maximumImageSize As IImageSize) As String
         Dim justFileName As String = Path.GetFileNameWithoutExtension(imagePath)
         Dim newFileName As String = String.Concat(justFileName, "-", maximumImageSize.Width, "x", maximumImageSize.Height)
@@ -23,6 +26,12 @@ Public Class FileHelper
         End If
         Return imagePath
     End Function
+    '    Public Function GetNewImagePath(ByVal image As IResizableImageOptions) As String Implements IResizeImageName.GetNewImagePath
+    '        Dim fileName As String = image.InputPath.Split(CChar("/")).Last
+    '        Dim arrFilename = fileName.Split(CChar("."))
+    '        fileName = Join(arrFilename.Take(arrFilename.Length - 1).ToArray)
+    '        Return ("/" & image.MaximumImageSize.Width & "x" & image.MaximumImageSize.Height & "-" & fileName & ".png")
+    '    End Function
     Public Shared Function MapURL(ByVal Path As String) As String
         If Not HttpContext.Current Is Nothing Then
             Dim AppPath As String = HttpContext.Current.Server.MapPath("~")

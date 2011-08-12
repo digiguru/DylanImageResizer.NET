@@ -35,8 +35,11 @@ Future Plans
 
 Release History
 ---------------
-### Version 2.0.0.0
+### Version 2.1.0.0
 
+Refactored code in preparation for the next build where images can be resized in multiple ways.
+
+### Version 2.0.0.0
 
 *Breaking change* - No Image Resize with just path, now we output extra information
 

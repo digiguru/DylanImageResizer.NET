@@ -63,11 +63,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FileHelper.vb" />
-    <Compile Include="IImageResizeable.vb" />
+    <Compile Include="IImageResizeableImageObject.vb" />
     <Compile Include="IImageSize.vb" />
-    <Compile Include="ImageResizable.vb" />
+    <Compile Include="ImageResizeableImageObject.vb" />
     <Compile Include="ImageResizer.vb" />
     <Compile Include="ImageSize.vb" />
+    <Compile Include="IResizeableImageOptions.vb" />
+    <Compile Include="IResizedImage.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -83,6 +85,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="ResizableImageOptions.vb" />
+    <Compile Include="ResizedImage.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">

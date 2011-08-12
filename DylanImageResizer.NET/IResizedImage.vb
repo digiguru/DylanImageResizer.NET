@@ -1,5 +1,5 @@
-﻿Public Interface IImageResizeable
+﻿Public Interface IResizedImage
     Property OutputSize As IImageSize
-    Property Path() As String
+    Property OutputPath() As String
     Property OffsetCenter() As System.Drawing.Point
 End Interface

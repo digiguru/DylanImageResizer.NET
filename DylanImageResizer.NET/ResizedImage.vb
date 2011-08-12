@@ -1,8 +1,7 @@
-﻿Public Class ImageResizable
-    Implements IImageResizeable
-
+﻿Public Class ResizedImage
+    Implements IResizedImage
     Private _outputSize As IImageSize
-    Public Property OutputSize As IImageSize Implements IImageResizeable.OutputSize
+    Public Property OutputSize As IImageSize Implements IResizedImage.OutputSize
         Get
             Return _outputSize
         End Get
@@ -11,17 +10,17 @@
         End Set
     End Property
 
-    Private _path As String
-    Public Property Path As String Implements IImageResizeable.Path
+    Private _outputpath As String
+    Public Property OutputPath As String Implements IResizedImage.OutputPath
         Get
-            Return _path
+            Return _outputpath
         End Get
         Set(ByVal value As String)
-            _path = value
+            _outputpath = value
         End Set
     End Property
     Private _offsetCenter As System.Drawing.Point
-    Public Property OffsetCenter As System.Drawing.Point Implements IImageResizeable.OffsetCenter
+    Public Property OffsetCenter As System.Drawing.Point Implements IResizedImage.OffsetCenter
         Get
             Return _offsetCenter
         End Get
@@ -29,4 +28,5 @@
             _offsetCenter = value
         End Set
     End Property
+
 End Class

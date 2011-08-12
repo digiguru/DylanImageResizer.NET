@@ -4,29 +4,34 @@ Imports System.Net
 
 Public Class ImageResizer
 
-    Public Function ResizeImage(ByVal imageURL As String, ByVal maximumImageSize As IImageSize) As IImageResizeable
-        Dim newPath As String = FileHelper.GetNewImagePath(imageURL, maximumImageSize)
-        If Not File.Exists(newPath) Then
-            If FileHelper.IsWebServer(imageURL) Then
-                Return ResizeFromInternet(imageURL, newPath, maximumImageSize)
-            ElseIf FileHelper.IsFromLocalPath(imageURL) Then
-                Return ResizeFromFilePath(imageURL, newPath, maximumImageSize)
+    Public Function ResizeImage(ByVal resizableImage As IImageResizeableImageObject) As IImageResizeableImageObject
+
+        Dim newPath As String = FileHelper.GetNewImagePath(resizableImage.ResizableImageOptions)
+        With resizableImage.ResizableImageOptions
+            If Not File.Exists(newPath) Then
+                Dim imageURL As String = .InputPath
+                If FileHelper.IsWebServer(imageURL) Then
+                    Return ResizeFromInternet(imageURL, newPath, .MaximumImageSize)
+                ElseIf FileHelper.IsFromLocalPath(imageURL) Then
+                    Return ResizeFromFilePath(imageURL, newPath, .MaximumImageSize)
+                Else
+                    Return ResizeFromLocalServer(imageURL, newPath, .MaximumImageSize)
+                End If
             Else
-                Return ResizeFromLocalServer(imageURL, newPath, maximumImageSize)
+                Return GetCachedImage(newPath, .MaximumImageSize)
             End If
-        Else
-            Return GetCachedImage(newPath, maximumImageSize)
-        End If
+        End With
         Return Nothing
     End Function
-    Private Function GetCachedImage(newPath As String, maximumImageSize As IImageSize) As IImageResizeable
-        Dim NewImage As New ImageResizable
+    Private Function GetCachedImage(newPath As String, maximumImageSize As IImageSize) As IImageResizeableImageObject
+        Dim NewImage As New ImageResizeableImageObject
         Dim newImageSize As IImageSize
         Using imageObj As System.Drawing.Image = System.Drawing.Image.FromFile(newPath)
             newImageSize = New ImageSize With {.Width = imageObj.Width, .Height = imageObj.Height}
         End Using
-        With NewImage
-            .Path = newPath
+        NewImage.ResizedImage = New ResizedImage
+        With NewImage.ResizedImage
+            .OutputPath = newPath
             .OutputSize = newImageSize
             .OffsetCenter = CenteredImageOffset(newImageSize, maximumImageSize)
         End With
@@ -34,7 +39,7 @@ Public Class ImageResizer
     End Function
     Private Function ResizeFromLocalServer(ByVal imageURL As String, _
                                            ByVal newPath As String, _
-                                           ByVal maximumImageSize As IImageSize) As IImageResizeable
+                                           ByVal maximumImageSize As IImageSize) As IImageResizeableImageObject
         Dim originalPath As String = String.Empty
         originalPath = FileHelper.MapPath(imageURL)
         Return ResizeFromFilePath(originalPath, newPath, maximumImageSize)
@@ -42,7 +47,7 @@ Public Class ImageResizer
 
     Private Function ResizeFromFilePath(ByVal imageOnDisk As String, _
                                        ByVal newPath As String, _
-                                       ByVal maximumImageSize As IImageSize) As IImageResizeable
+                                       ByVal maximumImageSize As IImageSize) As IImageResizeableImageObject
         If File.Exists(imageOnDisk) Then
             Using imageObj As System.Drawing.Image = System.Drawing.Image.FromFile(imageOnDisk)
                 Return CalaculateSizeAndResizeImage(imageObj, newPath, Imaging.ImageFormat.Jpeg, maximumImageSize)
@@ -54,7 +59,7 @@ Public Class ImageResizer
     End Function
     Private Function ResizeFromInternet(ByVal imageURL As String, _
                                         ByVal newPath As String, _
-                                        ByVal maximumImageSize As IImageSize) As IImageResizeable
+                                        ByVal maximumImageSize As IImageSize) As IImageResizeableImageObject
         Dim objRequest As WebRequest
         objRequest = WebRequest.Create(New Uri(imageURL))
         objRequest.Timeout = 10000
@@ -71,8 +76,8 @@ Public Class ImageResizer
                                        ByVal savePath As String, _
                                        ByVal format As System.Drawing.Imaging.ImageFormat, _
                                        ByVal maximumImageSize As IImageSize
-                                      ) As IImageResizeable
-        Dim NewImage As New ImageResizable
+                                      ) As IImageResizeableImageObject
+        Dim NewImage As New ImageResizeableImageObject
 
         Dim oldImageSize As New ImageSize With {.Width = imageObj.Width, .Height = imageObj.Height}
         'Pre-processing, do we want to shrink the image? grow the image? Is it going to be cropped or the aspect ratio retained?
@@ -80,13 +85,13 @@ Public Class ImageResizer
         If theOriginalImageIsBiggerThanResize Then
             Dim newImageSize As IImageSize = CalculateImageSize(oldImageSize, maximumImageSize)
             'If you set this after the resize, you'll find that "maximum Image size" has magically changed
-            With NewImage
+            ResizeImage(imageObj, savePath, format, oldImageSize, newImageSize)
+            NewImage.ResizedImage = New ResizedImage
+            With NewImage.ResizedImage
                 .OutputSize = newImageSize
                 .OffsetCenter = CenteredImageOffset(newImageSize, maximumImageSize)
-            End With
-            ResizeImage(imageObj, savePath, format, oldImageSize, newImageSize)
-            With NewImage
-                .Path = savePath
+                'ResizeImage(imageObj, savePath, format, oldImageSize, newImageSize)
+                .OutputPath = savePath
             End With
         End If
         Return NewImage

@@ -47,7 +47,7 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ImageResizer, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ImageResizer, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\DylanImageResizer.NET\bin\Debug\ImageResizer.dll</HintPath>
     </Reference>

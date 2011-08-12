@@ -10,43 +10,82 @@ Public Class _Default
 
         With resizer
             Dim original As String = "/example.jpg"
-            Dim resized As ImageResizer.IImageResizeable
+            Dim resized As ImageResizer.IImageResizeableImageObject
 
-            resized = .ResizeImage(original, New ImageResizer.ImageSize With {.Height = 105, .Width = 105})
+            Dim resizable As New ImageResizer.ImageResizeableImageObject
+            resizable.ResizableImageOptions = New ImageResizer.ResizableImageOptions _
+                                    With {
+                                        .InputPath = original,
+                                        .MaximumImageSize = _
+                                            New ImageResizer.ImageSize _
+                                                With { _
+                                                        .Height = 125, _
+                                                        .Width = 125 _
+                                                    } _
+                                            }
+
+
+            resized = .ResizeImage(resizable)
 
             imgOriginal.ImageUrl = original
-            imgResized.ImageUrl = ImageResizer.FileHelper.MapURL(resized.Path)
-            imgResized.Height = resized.OutputSize.Height
-            imgResized.Width = resized.OutputSize.Width
-            imgResized.Attributes.Add("style", RenderStyle(resized.OffsetCenter))
+            imgResized.ImageUrl = ImageResizer.FileHelper.MapURL(resized.ResizedImage.OutputPath)
+            imgResized.Height = resized.ResizedImage.OutputSize.Height
+            imgResized.Width = resized.ResizedImage.OutputSize.Width
+            imgResized.Attributes.Add("style", RenderStyle(resized.ResizedImage.OffsetCenter))
 
         End With
 
         With resizer
             Dim originalFile As String = "/chrome.jpg"
-            Dim resizedFile As ImageResizer.IImageResizeable
+            Dim resized As ImageResizer.IImageResizeableImageObject
 
-            resizedFile = .ResizeImage(MapPath(originalFile), New ImageResizer.ImageSize With {.Height = 105, .Width = 105})
+            Dim resizable As New ImageResizer.ImageResizeableImageObject
+            resizable.ResizableImageOptions = New ImageResizer.ResizableImageOptions _
+                                    With {
+                                        .InputPath = MapPath(originalFile),
+                                        .MaximumImageSize = _
+                                            New ImageResizer.ImageSize _
+                                                With { _
+                                                        .Height = 125, _
+                                                        .Width = 125 _
+                                                    } _
+                                            }
+
+
+            resized = .ResizeImage(resizable)
 
             imgOriginalFile.ImageUrl = originalFile
-            imgResizedFile.ImageUrl = ImageResizer.FileHelper.MapURL(resizedFile.Path)
-            imgResizedFile.Height = resizedFile.OutputSize.Height
-            imgResizedFile.Width = resizedFile.OutputSize.Width
-            imgResized.Attributes.Add("style", RenderStyle(resizedFile.OffsetCenter))
+            imgResizedFile.ImageUrl = ImageResizer.FileHelper.MapURL(resized.ResizedImage.OutputPath)
+            imgResizedFile.Height = resized.ResizedImage.OutputSize.Height
+            imgResizedFile.Width = resized.ResizedImage.OutputSize.Width
+            imgResizedFile.Attributes.Add("style", RenderStyle(resized.ResizedImage.OffsetCenter))
 
         End With
 
         With resizer
             Dim originalWeb As String = "http://upload.wikimedia.org/wikipedia/en/b/bc/Wiki.png"
-            Dim resizedWeb As ImageResizer.IImageResizeable
+            Dim resized As ImageResizer.IImageResizeableImageObject
 
-            resizedWeb = .ResizeImage(originalWeb, New ImageResizer.ImageSize With {.Height = 105, .Width = 105})
+            Dim resizable As New ImageResizer.ImageResizeableImageObject
+            resizable.ResizableImageOptions = New ImageResizer.ResizableImageOptions _
+                                    With {
+                                        .InputPath = originalWeb,
+                                        .MaximumImageSize = _
+                                            New ImageResizer.ImageSize _
+                                                With { _
+                                                        .Height = 125, _
+                                                        .Width = 125 _
+                                                    } _
+                                            }
+
+
+            resized = .ResizeImage(resizable)
 
             imgOriginalWeb.ImageUrl = originalWeb
-            imgResizedWeb.ImageUrl = ImageResizer.FileHelper.MapURL(resizedWeb.Path)
-            imgResizedFile.Height = resizedWeb.OutputSize.Height
-            imgResizedFile.Width = resizedWeb.OutputSize.Width
-            imgResized.Attributes.Add("style", RenderStyle(resizedWeb.OffsetCenter))
+            imgResizedWeb.ImageUrl = ImageResizer.FileHelper.MapURL(resized.ResizedImage.OutputPath)
+            imgResizedWeb.Height = resized.ResizedImage.OutputSize.Height
+            imgResizedWeb.Width = resized.ResizedImage.OutputSize.Width
+            imgResizedWeb.Attributes.Add("style", RenderStyle(resized.ResizedImage.OffsetCenter))
 
         End With
 
