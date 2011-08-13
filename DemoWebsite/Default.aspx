@@ -15,9 +15,14 @@
        <asp:image id="imgOriginal" runat="server" />
     </p>
     <p>
-       Resized
+       Resized Large
        <br />
-       <asp:image id="imgResized" runat="server" />
+       <asp:image id="imgResized1" runat="server" />
+    </p>
+    <p>
+       Resized Small
+       <br />
+       <asp:image id="imgResized2" runat="server" />
     </p>
     <hr />
     <h3>From actual path</h3>
@@ -27,9 +32,14 @@
        <asp:image id="imgOriginalFile" runat="server" />
     </p>
     <p>
-       Resized
+       Resized Large
        <br />
-       <asp:image id="imgResizedFile" runat="server" />
+       <asp:image id="imgResizedFile1" runat="server" />
+    </p>
+    <p>
+       Resized Small
+       <br />
+       <asp:image id="imgResizedFile2" runat="server" />
     </p>
     <hr />
     <h3>From webserver</h3>
@@ -39,9 +49,14 @@
        <asp:image id="imgOriginalWeb" runat="server" />
     </p>
     <p>
-       Resized
+       Resized Large
        <br />
-       <asp:image id="imgResizedWeb" runat="server" />
+       <asp:image id="imgResizedWeb1" runat="server" />
+    </p>
+    <p>
+       Resized Small
+       <br />
+       <asp:image id="imgResizedWeb2" runat="server" />
     </p>
 
 </asp:Content>

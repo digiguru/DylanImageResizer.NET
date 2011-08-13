@@ -23,13 +23,22 @@ Partial Public Class _Default
     Protected WithEvents imgOriginal As Global.System.Web.UI.WebControls.Image
 
     '''<summary>
-    '''imgResized control.
+    '''imgResized1 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents imgResized As Global.System.Web.UI.WebControls.Image
+    Protected WithEvents imgResized1 As Global.System.Web.UI.WebControls.Image
+
+    '''<summary>
+    '''imgResized2 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents imgResized2 As Global.System.Web.UI.WebControls.Image
 
     '''<summary>
     '''imgOriginalFile control.
@@ -41,13 +50,22 @@ Partial Public Class _Default
     Protected WithEvents imgOriginalFile As Global.System.Web.UI.WebControls.Image
 
     '''<summary>
-    '''imgResizedFile control.
+    '''imgResizedFile1 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents imgResizedFile As Global.System.Web.UI.WebControls.Image
+    Protected WithEvents imgResizedFile1 As Global.System.Web.UI.WebControls.Image
+
+    '''<summary>
+    '''imgResizedFile2 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents imgResizedFile2 As Global.System.Web.UI.WebControls.Image
 
     '''<summary>
     '''imgOriginalWeb control.
@@ -59,11 +77,20 @@ Partial Public Class _Default
     Protected WithEvents imgOriginalWeb As Global.System.Web.UI.WebControls.Image
 
     '''<summary>
-    '''imgResizedWeb control.
+    '''imgResizedWeb1 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents imgResizedWeb As Global.System.Web.UI.WebControls.Image
+    Protected WithEvents imgResizedWeb1 As Global.System.Web.UI.WebControls.Image
+
+    '''<summary>
+    '''imgResizedWeb2 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents imgResizedWeb2 As Global.System.Web.UI.WebControls.Image
 End Class
