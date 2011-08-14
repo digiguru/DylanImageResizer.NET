@@ -35,6 +35,10 @@ Future Plans
 
 Release History
 ---------------
+### Version 3.0.0.0
+
+Resizes from a generic type of T - allowing multiple images to be resized in multiple sizes.
+
 ### Version 2.2.0.0
 
 Multiple image resizes

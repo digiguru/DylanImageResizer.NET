@@ -2,35 +2,32 @@
 Imports System.IO
 Imports System.Net
 
-Public Class ImageResizer
+Public Class ImageResizer(Of T As IImageResizeableMultipleSizes)
 
-    Public Function ResizeImage(ByVal resizableImageList As IImageResizeableMultipleSizes) As IImageResizeableMultipleSizes
-        Dim resizedImagesList As New Generic.List(Of IResizedImage)
-
-        For Each imgSize As IImageSize In resizableImageList.ImageSizes
-            Dim imgObject As New ResizableImageOptions() With {.InputPath = resizableImageList.ImagePath, .MaximumImageSize = imgSize}
-            Dim newPath As String = FileHelper.GetNewImagePath(imgObject)
-
-            With imgObject
-                If Not File.Exists(newPath) Then
-                    Dim imageURL As String = .InputPath
-                    If FileHelper.IsWebServer(imageURL) Then
-                        resizedImagesList.Add(ResizeFromInternet(imageURL, newPath, .MaximumImageSize))
-                    ElseIf FileHelper.IsFromLocalPath(imageURL) Then
-                        resizedImagesList.Add(ResizeFromFilePath(imageURL, newPath, .MaximumImageSize))
+    Public Function ResizeImage(ByVal objectWithImageList As IEnumerable(Of T), ByVal resizeOptionList As IEnumerable(Of IImageSize)) As IEnumerable(Of T)
+        For Each image As IImageResizeableMultipleSizes In objectWithImageList
+            Dim resizedImagesList As New Generic.List(Of IResizedImage)
+            For Each imgSize As IImageSize In resizeOptionList
+                Dim imgObject As New ResizableImageOptions() With {.InputPath = image.ImagePath, .MaximumImageSize = imgSize}
+                Dim newPath As String = FileHelper.GetNewImagePath(imgObject)
+                With imgObject
+                    If Not File.Exists(newPath) Then
+                        Dim imageURL As String = .InputPath
+                        If FileHelper.IsWebServer(imageURL) Then
+                            resizedImagesList.Add(ResizeFromInternet(imageURL, newPath, .MaximumImageSize))
+                        ElseIf FileHelper.IsFromLocalPath(imageURL) Then
+                            resizedImagesList.Add(ResizeFromFilePath(imageURL, newPath, .MaximumImageSize))
+                        Else
+                            resizedImagesList.Add(ResizeFromLocalServer(imageURL, newPath, .MaximumImageSize))
+                        End If
                     Else
-                        resizedImagesList.Add(ResizeFromLocalServer(imageURL, newPath, .MaximumImageSize))
+                        resizedImagesList.Add(GetCachedImage(newPath, .MaximumImageSize))
                     End If
-                Else
-                    resizedImagesList.Add(GetCachedImage(newPath, .MaximumImageSize))
-                End If
-            End With
+                End With
+            Next
+            image.ResizedImageList = resizedImagesList
         Next
-
-        resizableImageList.ResizedImageList = resizedImagesList
-        Return resizableImageList
-
-        Return Nothing
+        Return objectWithImageList
     End Function
     Private Function GetCachedImage(newPath As String, maximumImageSize As IImageSize) As IResizedImage
         Dim NewResizedImage As New ResizedImage
