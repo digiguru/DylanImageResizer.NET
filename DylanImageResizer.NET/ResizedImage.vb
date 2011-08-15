@@ -19,12 +19,12 @@
             _outputpath = value
         End Set
     End Property
-    Private _offsetCenter As System.Drawing.Point
-    Public Property OffsetCenter As System.Drawing.Point Implements IResizedImage.OffsetCenter
+    Private _offsetCenter As IImageSize
+    Public Property OffsetCenter As IImageSize Implements IResizedImage.OffsetCenter
         Get
             Return _offsetCenter
         End Get
-        Set(ByVal value As System.Drawing.Point)
+        Set(ByVal value As IImageSize)
             _offsetCenter = value
         End Set
     End Property

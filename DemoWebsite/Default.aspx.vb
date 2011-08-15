@@ -1,8 +1,8 @@
 ﻿
 Public Class _Default
     Inherits System.Web.UI.Page
-    Private Function RenderStyle(offset As System.Drawing.Point)
-        Return "margin-left:" & offset.X & "px;margin-Top: " & offset.Y & "px"
+    Private Function RenderStyle(offset As ImageResizer.IImageSize)
+        Return "margin-left:" & offset.Width & "px;margin-Top: " & offset.Height & "px"
     End Function
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
