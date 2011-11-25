@@ -6,7 +6,7 @@ A Simple image resizer for .NET
 
 Resizeing images in asp.net can be a little over complicated.
 
-It should be like this...
+It should be like this....
 
 ### VB
     ImageResizer.ImageResizer resizer = new ImageResizer.ImageResizer();
